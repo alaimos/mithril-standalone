@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="com.jillesvangurp:jsonj:2.21" type="repository">
+    <properties maven-id="com.jillesvangurp:jsonj:2.21" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jsonj-2.21.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/guava-17.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang3-3.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/efficientstring-1.12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jackson-core-2.6.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/jsonj-2.21-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/jsonj-2.21-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

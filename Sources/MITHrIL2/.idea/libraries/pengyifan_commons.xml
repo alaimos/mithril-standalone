@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="pengyifan-commons">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/pengyifan-commons.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/lib/pengyifan-commons.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,11 @@
+com.alaimos.MITHrIL.CommandLine.MITHrILService
+com.alaimos.MITHrIL.CommandLine.BatchMITHrILService
+com.alaimos.MITHrIL.CommandLine.MITHrILConversionService
+com.alaimos.MITHrIL.CommandLine.OrganismsService
+com.alaimos.MITHrIL.CommandLine.VersioningService
+com.alaimos.MITHrIL.CommandLine.DisplayCategoriesServices
+com.alaimos.MITHrIL.CommandLine.Threaded.FastPerturbationService
+com.alaimos.MITHrIL.CommandLine.Threaded.FastPathwayService
+com.alaimos.SPECifIC.CommandLine.ExportSubstructuresService
+com.alaimos.SPECifIC.CommandLine.BuildIndexService
+com.alaimos.SPECifIC.CommandLine.ExportGraphService
