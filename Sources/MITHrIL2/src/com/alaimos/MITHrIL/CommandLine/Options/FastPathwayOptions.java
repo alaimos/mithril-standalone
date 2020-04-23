@@ -15,11 +15,11 @@ import java.util.Arrays;
 public class FastPathwayOptions extends AbstractOptions {
 
     @Option(name = "-i", aliases = "-in", usage = "a tab-separated input file where each line contains " +
-                                                  "a node identifier (gene, microRNA, metabolite) and its Log-Fold-Change for each experiment.\n" +
-                                                  "If the Log-Fold-Change is absent or zero, the gene is assumed as non-differentially expressed.\n" +
-                                                  "Genes are identified by EntrezId, microRNA by mature name (miRBase release 21), metabolites or " +
-                                                  "chemicals by KEGG id.\nThe first line of the file MUST contain names for each experiment. No spaces or " +
-                                                  "symbols are allowed for experiment names.", required = true)
+            "a node identifier (gene, microRNA, metabolite) and its Log-Fold-Change for each experiment.\n" +
+            "If the Log-Fold-Change is absent or zero, the gene is assumed as non-differentially expressed.\n" +
+            "Genes are identified by EntrezId, microRNA by mature name (miRBase release 21), metabolites or " +
+            "chemicals by KEGG id.\nThe first line of the file MUST contain names for each experiment. No spaces or " +
+            "symbols are allowed for experiment names.", required = true)
     public File input = null;
 
     @Option(name = "-o", aliases = "-out", usage = "output file.", required = true)
@@ -50,28 +50,28 @@ public class FastPathwayOptions extends AbstractOptions {
     public File excludePathways = null;
     public String[] includeCategories = null;
     public String[] excludeCategories = new String[]{
-            "Endocrine and metabolic diseases", "Neurodegenerative diseases", "Human Diseases", "Immune diseases", "Infectious diseases",
-            "Cardiovascular diseases"
+            "Endocrine and metabolic disease", "Neurodegenerative disease", "Human Diseases", "Immune disease",
+            "Infectious disease: viral", "Infectious disease: parasitic", "Cardiovascular disease"
     };
 
     @Option(name = "-include-categories", usage = "a list of pathway categories (separated by comma) to use when " +
-                                                  "building the meta-pathway environment.\nOnly pathways contained in one of these categories will be " +
-                                                  "included in the computation.", metaVar = "cat1, cat2, ...", depends = "-m")
+            "building the meta-pathway environment.\nOnly pathways contained in one of these categories will be " +
+            "included in the computation.", metaVar = "cat1, cat2, ...", depends = "-m")
     public void setIncludeCategories(String s) {
         includeCategories = Arrays.stream(s.split(","))
-                                  .filter(v -> !v.isEmpty())
-                                  .map(String::trim)
-                                  .toArray(String[]::new);
+                .filter(v -> !v.isEmpty())
+                .map(String::trim)
+                .toArray(String[]::new);
     }
 
     @Option(name = "-exclude-categories", usage = "a list of pathway categories (separated by comma) to exclude when " +
-                                                  "building the meta-pathway environment.\nIf a pathways is contained in one of these categories then it will" +
-                                                  "  be excluded from the computation.", metaVar = "cat1, cat2, ...", depends = "-m")
+            "building the meta-pathway environment.\nIf a pathways is contained in one of these categories then it will" +
+            "  be excluded from the computation.", metaVar = "cat1, cat2, ...", depends = "-m")
     public void setExcludeCategories(String s) {
         excludeCategories = Arrays.stream(s.split(","))
-                                  .filter(v -> !v.isEmpty())
-                                  .map(String::trim)
-                                  .toArray(String[]::new);
+                .filter(v -> !v.isEmpty())
+                .map(String::trim)
+                .toArray(String[]::new);
     }
 
 

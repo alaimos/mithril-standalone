@@ -31,9 +31,9 @@ public class RemoteMiRNATFReader extends RemoteTextFileReader {
             if (!d[1].isEmpty()) {
                 if (db.containsKey(d[1])) {
                     db.get(d[1]).addTranscriptionFactor(d);
-                } else {
+                } /* else {
                     System.err.println(d[1] + " not found!!");
-                }
+                } */
             }
         }
         return db;

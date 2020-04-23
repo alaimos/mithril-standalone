@@ -46,7 +46,7 @@ public class Repository implements RepositoryInterface {
         });
         BatchDecoyBuilder builder = new BatchDecoyBuilder();
         builder.init().setParameter("repository", this).setParameter("allNodes", allGenes)
-               .setParameter("idToNodes", idToGenes).setParameter("random", r).run();
+                .setParameter("idToNodes", idToGenes).setParameter("random", r).run();
         builder.getOutput().forEach((i, p) -> {
             this.add(p);
         });
@@ -91,14 +91,14 @@ public class Repository implements RepositoryInterface {
     @Override
     public List<String> getPathwayIdsByCategory(List<String> category) {
         HashSet<String> ps = new HashSet<>();
-        category.stream().map(this::getPathwayIdsByCategory).forEachOrdered(ps::addAll);
+        category.stream().map(this::getPathwayIdsByCategory).filter(Objects::nonNull).forEachOrdered(ps::addAll);
         return new ArrayList<>(ps);
     }
 
     @Override
     public List<String> getPathwaysByNodeId(String nodeId) {
         return pathways.values().stream().filter(pathway -> pathway.hasGraph() && pathway.getGraph().hasNode(nodeId))
-                       .map(PathwayInterface::getId).collect(Collectors.toList());
+                .map(PathwayInterface::getId).collect(Collectors.toList());
     }
 
     @Override

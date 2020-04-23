@@ -32,8 +32,8 @@ public class ExportSubstructuresOptions extends AbstractOptions {
             "computation", metaVar = "id1, id2, ...", required = false)
     protected void setNodesOfInterest(String s) {
         nodesOfInterest = Arrays.stream(s.split(","))
-                                .filter(v -> !v.isEmpty())
-                                .map(String::trim).collect(Collectors.toList());
+                .filter(v -> !v.isEmpty())
+                .map(String::trim).collect(Collectors.toList());
     }
 
     @Option(name = "-p", aliases = "-perturbations", usage = "mithril perturbations file which contains all " +
@@ -72,9 +72,9 @@ public class ExportSubstructuresOptions extends AbstractOptions {
             "included in the computation.", metaVar = "cat1, cat2, ...")
     protected void setIncludeCategories(String s) {
         includeCategories = Arrays.stream(s.split(","))
-                                  .filter(v -> !v.isEmpty())
-                                  .map(String::trim)
-                                  .toArray(String[]::new);
+                .filter(v -> !v.isEmpty())
+                .map(String::trim)
+                .toArray(String[]::new);
     }
 
     protected String[] includeCategories = null;
@@ -84,14 +84,14 @@ public class ExportSubstructuresOptions extends AbstractOptions {
             "  be excluded from the computation.", metaVar = "cat1, cat2, ...")
     protected void setExcludeCategories(String s) {
         excludeCategories = Arrays.stream(s.split(","))
-                                  .filter(v -> !v.isEmpty())
-                                  .map(String::trim)
-                                  .toArray(String[]::new);
+                .filter(v -> !v.isEmpty())
+                .map(String::trim)
+                .toArray(String[]::new);
     }
 
     protected String[] excludeCategories = new String[]{
-            "Endocrine and metabolic diseases", "Neurodegenerative diseases", "Human Diseases", "Immune diseases", "Infectious diseases",
-            "Cardiovascular diseases"
+            "Endocrine and metabolic disease", "Neurodegenerative disease", "Human Diseases", "Immune disease",
+            "Infectious disease: viral", "Infectious disease: parasitic", "Cardiovascular disease"
     };
 
     @Option(name = "-min-number-of-nodes", usage = "the minimum number of nodes of a path.")
