@@ -16,12 +16,14 @@
       <w>kegg</w>
       <w>lfcs</w>
       <w>logit</w>
+      <w>metap</w>
       <w>mgrel</w>
       <w>mithril</w>
       <w>nois</w>
       <w>overexpression</w>
       <w>phensim</w>
       <w>reportln</w>
+      <w>signum</w>
       <w>simpathy</w>
       <w>stdev</w>
       <w>stouffer</w>

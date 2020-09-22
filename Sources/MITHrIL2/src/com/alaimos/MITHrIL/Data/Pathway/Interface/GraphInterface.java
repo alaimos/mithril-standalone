@@ -127,7 +127,6 @@ public interface GraphInterface
 
     void traverseDownstream(Collection<NodeInterface> results, NodeInterface currentNode, boolean markTraversal);
 
-    @SuppressWarnings("unchecked")
     Object clone();
 
     GraphInterface setOwner(PathwayInterface o);

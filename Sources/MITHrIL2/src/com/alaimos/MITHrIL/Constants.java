@@ -2,7 +2,7 @@ package com.alaimos.MITHrIL;
 
 /**
  * @author Salvatore Alaimo, Ph.D.
- * @version 2.1.0.0
+ * @version 2.2.0.0
  * @since 12/12/2015
  */
 public class Constants {
@@ -15,6 +15,6 @@ public class Constants {
     public static final String COMMONS_EDGE_TYPE    = "https://alpha.dmi.unict.it/mithril/data/commons/edgetype.enum";
     public static final String COMMONS_NODE_TYPE    = "https://alpha.dmi.unict.it/mithril/data/commons/nodetype.enum";
     public static final String MITHRIL_VERSION_FILE = "version";
-    public static final String CURRENT_VERSION      = "2.1.0.0";
+    public static final String CURRENT_VERSION      = "2.2.0.0";
 
 }

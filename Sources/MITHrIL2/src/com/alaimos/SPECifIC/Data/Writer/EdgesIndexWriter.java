@@ -27,12 +27,12 @@ public class EdgesIndexWriter extends AbstractDataWriter<PathwayInterface> {
     @Override
     public DataWriterInterface<PathwayInterface> write(PathwayInterface data) {
         try (PrintStream ps = new PrintStream(getOutputStream())) {
-            ps.println("#Start\tEnd\tType\tSubtype");
+            ps.println("#Start\tEnd\tType\tSubtype\tWeight");
             for (Map<String, EdgeInterface> el : data.getGraph().getEdges().values()) {
                 for (EdgeInterface e : el.values()) {
                     for (EdgeDescriptionInterface ed : e.getDescriptions()) {
                         writeDelimited(ps, "\t", e.getStart().getId(), e.getEnd().getId(), ed.getType(),
-                                ed.getSubType());
+                                ed.getSubType(), e.computeWeight());
                         ps.println();
                     }
                 }

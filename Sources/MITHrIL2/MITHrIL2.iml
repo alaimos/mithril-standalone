@@ -36,5 +36,24 @@
     <orderEntry type="library" name="org.apache.commons:commons-math3:3.5" level="project" />
     <orderEntry type="library" name="com.opencsv:opencsv:3.6" level="project" />
     <orderEntry type="library" name="pengyifan-commons" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/19.0.0/annotations-19.0.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/19.0.0/annotations-19.0.0.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="me.tongfei:progressbar:0.8.1" level="project" />
   </component>
 </module>

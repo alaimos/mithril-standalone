@@ -97,6 +97,7 @@ public class ExportGraphService implements Service {
         MergedRepository rm =
                 Common.mergeRepositories(r, options.getIncludeCategories(), options.getExcludeCategories(), null, null,
                         options.isDisablePriority());
+        rm.setDefaultWeightComputation();
         PathwayInterface mp = rm.getPathway();
         reportln("...OK!");
         if (options.getNodesOutput() != null) {

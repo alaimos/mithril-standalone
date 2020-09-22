@@ -6,6 +6,10 @@ com.alaimos.MITHrIL.CommandLine.VersioningService
 com.alaimos.MITHrIL.CommandLine.DisplayCategoriesServices
 com.alaimos.MITHrIL.CommandLine.Threaded.FastPerturbationService
 com.alaimos.MITHrIL.CommandLine.Threaded.FastPathwayService
+com.alaimos.PHENSIM.CommandLine.EnrichersService
+com.alaimos.PHENSIM.CommandLine.PHENSIMService
+com.alaimos.PHENSIM.CommandLine.ExportOrganismsService
+com.alaimos.PHENSIM.CommandLine.ExportSubGraphService
 com.alaimos.SPECifIC.CommandLine.ExportSubstructuresService
 com.alaimos.SPECifIC.CommandLine.BuildIndexService
 com.alaimos.SPECifIC.CommandLine.ExportGraphService

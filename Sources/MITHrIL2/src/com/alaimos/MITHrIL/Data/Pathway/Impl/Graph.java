@@ -5,6 +5,7 @@ import com.alaimos.MITHrIL.Data.Pathway.Interface.*;
 import com.alaimos.MITHrIL.Data.Pathway.Type.EdgeSubType;
 import com.alaimos.MITHrIL.Data.Pathway.Type.EdgeType;
 import com.alaimos.MITHrIL.Data.Pathway.Type.NodeType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -357,6 +358,7 @@ public class Graph implements GraphInterface {
         traversalLogic(this::runDownstream, results, currentNode, markTraversal);
     }
 
+    @NotNull
     @Override
     public Iterator<NodeInterface> iterator() {
         return this.nodes.values().iterator();

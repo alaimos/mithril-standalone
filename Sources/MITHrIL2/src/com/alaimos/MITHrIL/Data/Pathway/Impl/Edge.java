@@ -166,7 +166,7 @@ public class Edge implements EdgeInterface {
         for (EdgeDescriptionInterface d : descriptions) {
             weight += weightComputation.weight(this, d);
         }
-        return weight;
+        return weight / Math.abs(weight); // Normalizes in the range [-1,1]
     }
 
     @Override
@@ -178,7 +178,7 @@ public class Edge implements EdgeInterface {
         for (EdgeDescriptionInterface d : descr) {
             weight += weightComputation.weight(this, d);
         }
-        return weight;
+        return weight / Math.abs(weight); // Normalizes in the range [-1,1]
         //return descr.stream().mapToDouble(d -> weightComputation.weight(this, d)).sum();
     }
 

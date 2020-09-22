@@ -47,14 +47,12 @@ public class Repository implements RepositoryInterface {
         BatchDecoyBuilder builder = new BatchDecoyBuilder();
         builder.init().setParameter("repository", this).setParameter("allNodes", allGenes)
                 .setParameter("idToNodes", idToGenes).setParameter("random", r).run();
-        builder.getOutput().forEach((i, p) -> {
-            this.add(p);
-        });
+        builder.getOutput().forEach((i, p) -> this.add(p));
         return this;
     }
 
     @Override
-    public boolean containsPathway(PathwayInterface p) {
+    public boolean containsPathway(@NotNull PathwayInterface p) {
         return pathways.containsKey(p.getId());
     }
 
@@ -77,7 +75,7 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
-    public List<PathwayInterface> getPathwaysByCategory(List<String> category) {
+    public List<PathwayInterface> getPathwaysByCategory(@NotNull List<String> category) {
         HashSet<PathwayInterface> ps = new HashSet<>();
         category.stream().map(this::getPathwaysByCategory).forEachOrdered(ps::addAll);
         return new ArrayList<>(ps);
@@ -89,7 +87,7 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
-    public List<String> getPathwayIdsByCategory(List<String> category) {
+    public List<String> getPathwayIdsByCategory(@NotNull List<String> category) {
         HashSet<String> ps = new HashSet<>();
         category.stream().map(this::getPathwayIdsByCategory).filter(Objects::nonNull).forEachOrdered(ps::addAll);
         return new ArrayList<>(ps);
@@ -142,12 +140,13 @@ public class Repository implements RepositoryInterface {
     }
 
     @Override
+    @NotNull
     public List<NodeInterface> getNodesOfVirtualPathway(String virtualPathwayId) {
         if (!virtualPathwaysNodesObject.containsKey(virtualPathwayId)) {
             List<Pair<String, String>> edges = virtualPathwaysEdges.get(virtualPathwayId);
-            if (edges == null) return null;
+            if (edges == null) return List.of();
             PathwayInterface sourcePathway = virtualPathwaysSource.getOrDefault(virtualPathwayId, getDefaultVirtualSource());
-            if (sourcePathway == null) return null;
+            if (sourcePathway == null) return List.of();
             GraphInterface sourceGraph = sourcePathway.getGraph();
             HashSet<String> nodes = new HashSet<>();
             edges.forEach(p -> {
@@ -156,7 +155,7 @@ public class Repository implements RepositoryInterface {
             });
             virtualPathwaysNodesObject.put(virtualPathwayId, nodes.stream().map(sourceGraph::getNode).collect(Collectors.toList()));
         }
-        return virtualPathwaysNodesObject.get(virtualPathwayId);
+        return virtualPathwaysNodesObject.getOrDefault(virtualPathwayId, List.of());
     }
 
     @Override
@@ -244,7 +243,7 @@ public class Repository implements RepositoryInterface {
 
     @Override
     public boolean contains(Object o) {
-        return o instanceof PathwayInterface && pathways.containsValue((PathwayInterface) o);
+        return o instanceof PathwayInterface && pathways.containsValue(o);
     }
 
     @NotNull
@@ -261,12 +260,13 @@ public class Repository implements RepositoryInterface {
 
     @NotNull
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(@NotNull T[] a) {
+        //noinspection SuspiciousToArrayCall
         return pathways.values().toArray(a);
     }
 
     @Override
-    public boolean add(PathwayInterface pathwayInterface) {
+    public boolean add(@NotNull PathwayInterface pathwayInterface) {
         if (pathways.containsKey(pathwayInterface.getId())) return false;
         pathways.put(pathwayInterface.getId(), pathwayInterface);
         pathwayInterface.getCategories().forEach(s -> {
@@ -282,9 +282,7 @@ public class Repository implements RepositoryInterface {
     public boolean remove(Object o) {
         if (!(o instanceof PathwayInterface)) return false;
         PathwayInterface p = (PathwayInterface) o;
-        p.getCategories().forEach(s -> {
-            this.pathwaysByCategory.get(s).remove(p.getId());
-        });
+        p.getCategories().forEach(s -> this.pathwaysByCategory.get(s).remove(p.getId()));
         return (pathways.remove(p.getId()) != null);
     }
 
@@ -319,7 +317,6 @@ public class Repository implements RepositoryInterface {
      *
      * @return my clone
      */
-    @SuppressWarnings("unchecked")
     public Object clone() {
         Repository clone;
         try {
@@ -329,9 +326,7 @@ public class Repository implements RepositoryInterface {
         }
         clone.pathwaysByCategory = new HashMap<>();
         clone.pathways = new HashMap<>();
-        pathways.forEach((s, pathwayInterface) -> {
-            clone.add((PathwayInterface) pathwayInterface.clone());
-        });
+        pathways.forEach((s, pathwayInterface) -> clone.add((PathwayInterface) pathwayInterface.clone()));
         return clone;
     }
 }

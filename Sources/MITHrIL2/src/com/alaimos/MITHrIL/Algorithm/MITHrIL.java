@@ -187,6 +187,7 @@ public class MITHrIL extends AbstractAlgorithm<PathwayAnalysisResult> {
 
     protected void putPerturbation(String nId, String pId, double pert, double acc) {
         if (!perturbations.containsKey(pId)) {
+            visitedPerturbations.put(pId, new HashMap<>());
             nodeAccumulators.put(pId, new HashMap<>());
             perturbations.put(pId, new HashMap<>());
         }
@@ -586,7 +587,7 @@ public class MITHrIL extends AbstractAlgorithm<PathwayAnalysisResult> {
      * @param g a pathway graph
      * @return a comparator to use with Collections.sort
      */
-    private Comparator<NodeInterface> pathwayNodesComparator(GraphInterface g) {
+    private Comparator<NodeInterface> pathwayNodesComparator(@NotNull GraphInterface g) {
         Comparator<NodeInterface> c2 = Comparator.comparingInt(g::inDegree), c3 = Comparator.comparingInt(g::outDegree);
         return c2.thenComparing(c3.reversed());
     }
@@ -597,7 +598,7 @@ public class MITHrIL extends AbstractAlgorithm<PathwayAnalysisResult> {
      * @param p a pathway
      * @return a list of sorted nodes
      */
-    protected List<NodeInterface> getSortedNodes(PathwayInterface p) {
+    protected List<NodeInterface> getSortedNodes(@NotNull PathwayInterface p) {
         GraphInterface g = p.getGraph();
         List<NodeInterface> nodes;
         if (sortedNodes.containsKey(p)) {
@@ -617,7 +618,8 @@ public class MITHrIL extends AbstractAlgorithm<PathwayAnalysisResult> {
      * @param g     a graph
      * @return a list of sorted nodes
      */
-    private List<NodeInterface> sortNodes(List<NodeInterface> nodes, GraphInterface g) {
+    @NotNull
+    private List<NodeInterface> sortNodes(@NotNull List<NodeInterface> nodes, GraphInterface g) {
         nodes.sort(pathwayNodesComparator(g));
         ArrayList<NodeInterface> sorted = new ArrayList<>(nodes.size());
         HashSet<NodeInterface> visited = new HashSet<>();
@@ -646,7 +648,7 @@ public class MITHrIL extends AbstractAlgorithm<PathwayAnalysisResult> {
      *
      * @param p a Pathway on which mithril will be executed
      */
-    void singlePathwayRun(PathwayInterface p) {
+    void singlePathwayRun(@NotNull PathwayInterface p) {
         if (p.hasGraph()) {
             notifyObservers("computingOn", p);
             GraphInterface g = p.getGraph();

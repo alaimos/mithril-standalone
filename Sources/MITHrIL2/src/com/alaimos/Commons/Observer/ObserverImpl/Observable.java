@@ -18,7 +18,7 @@ public abstract class Observable implements ObservableInterface {
     /**
      * A list of observers
      */
-    private ArrayList<ObserverInterface> observers = new ArrayList<>();
+    private final ArrayList<ObserverInterface> observers = new ArrayList<>();
 
     /**
      * This method notifies all observers
