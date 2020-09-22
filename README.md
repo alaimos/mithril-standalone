@@ -3,6 +3,7 @@
 This repository hosts the second release of MITHrIL algorithm
 
 The second releases of MITHrIL also includes support for multiple species, meta-pathway approach, and an implementation of the SPECIFIC algorithm.
+This version also includes the PHENSIM algorithm.
 
 
 #### If you are using this software, please cite:
