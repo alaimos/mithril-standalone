@@ -83,7 +83,9 @@ public class Graph implements GraphInterface {
         if (nodes.containsKey(id)) {
             nodes.remove(id);
             outEdges.remove(id);
+            outEdges.forEach((s, m) -> m.remove(id));
             inEdges.remove(id);
+            inEdges.forEach((s, m) -> m.remove(id));
             upstream.remove(id);
             downstream.remove(id);
             return true;
@@ -198,12 +200,12 @@ public class Graph implements GraphInterface {
             EdgeInterface edge = getEdge(e.getStart(), e.getEnd());
             if (!edge.equals(e)) {
                 e.getDescriptions().stream().filter(d -> !edge.getDescriptions().contains(d))
-                 .forEachOrdered(edge::addDescription);
+                        .forEachOrdered(edge::addDescription);
             }
         }
         if (owner != null) {
             getEdge(e.getStart(), e.getEnd()).getDescriptions().stream().filter(d -> d.getOwner() == null)
-                                             .forEach(d -> d.setOwner(owner));
+                    .forEach(d -> d.setOwner(owner));
         }
         return this;
     }
@@ -225,7 +227,7 @@ public class Graph implements GraphInterface {
     @Override
     public EdgeInterface addEdge(String startId, String endId, String type, String subType) {
         return this.addEdge(this.getNode(startId), this.getNode(endId), EdgeType.fromString(type),
-                            EdgeSubType.fromString(subType));
+                EdgeSubType.fromString(subType));
     }
 
     @Override
@@ -381,13 +383,11 @@ public class Graph implements GraphInterface {
         clone.outEdges = new HashMap<>();
         clone.inEdges = new HashMap<>();
         nodes.forEach((s, n) -> clone.addNode((NodeInterface) n.clone()));
-        outEdges.forEach((s, edges) -> {
-            edges.forEach((e, edge) -> {
-                EdgeInterface edgeC = (EdgeInterface) edge.clone();
-                edgeC.setStart(clone.getNode(s)).setEnd(clone.getNode(e));
-                clone.addEdge(edgeC);
-            });
-        });
+        outEdges.forEach((s, edges) -> edges.forEach((e, edge) -> {
+            EdgeInterface edgeC = (EdgeInterface) edge.clone();
+            edgeC.setStart(clone.getNode(s)).setEnd(clone.getNode(e));
+            clone.addEdge(edgeC);
+        }));
         clone.endpoints = (ArrayList<String>) endpoints.clone();
         clone.weightComputation = this.weightComputation; //Weight computation in never cloned
         clone.owner = owner;
@@ -397,11 +397,7 @@ public class Graph implements GraphInterface {
     @Override
     public GraphInterface setOwner(PathwayInterface o) {
         if (this.owner != o) {
-            outEdges.forEach((s, edges) -> {
-                edges.forEach((e, edge) -> {
-                    edge.getDescriptionsOwnedBy(owner).forEach(d -> d.setOwner(o));
-                });
-            });
+            outEdges.forEach((s, edges) -> edges.forEach((e, edge) -> edge.getDescriptionsOwnedBy(owner).forEach(d -> d.setOwner(o))));
         }
         this.owner = o;
         return this;
@@ -423,11 +419,7 @@ public class Graph implements GraphInterface {
         WeightComputationInterface old = this.weightComputation;
         this.weightComputation = defaultWeightComputation;
         if (this.weightComputation != old && changeAll) {
-            this.outEdges.forEach((s, edges) -> {
-                edges.forEach((s1, edge) -> {
-                    edge.setWeightComputationInterface(this.weightComputation);
-                });
-            });
+            this.outEdges.forEach((s, edges) -> edges.forEach((s1, edge) -> edge.setWeightComputationInterface(this.weightComputation)));
         }
         return this;
     }
