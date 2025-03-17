@@ -1,6 +1,7 @@
 package com.alaimos.Commons.Math.PValue;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.stream.IntStream;
@@ -68,8 +69,8 @@ public class Adjusters {
      * @return a set of corrected p-values
      */
     public static double[] bonferroni(double... pValues) {
-        int n = pValues.length;
-        if (n == 1) return pValues;
+        var n = pValues.length;
+        if (n == 1) return pValues.clone();
         return Arrays.stream(pValues).map(p -> Math.min(1, n * p)).toArray();
     }
 
@@ -79,12 +80,13 @@ public class Adjusters {
      * @param pValues a set of p-values
      * @return a set of corrected p-values
      */
-    public static double[] holm(double... pValues) {
-        if (pValues.length == 1) return pValues;
-        int n = pValues.length;
-        int[] o = order(pValues), ro = order(o);
-        double[] po = sortFromIndex(pValues, o),
-                pp = IntStream.range(0, n).mapToDouble(i -> (n - i) * po[i]).toArray();
+    public static double[] holm(@NotNull double... pValues) {
+        if (pValues.length == 1) return pValues.clone();
+        var n = pValues.length;
+        var o = order(pValues);
+        var ro = order(o);
+        var po = sortFromIndex(pValues, o);
+        var pp = IntStream.range(0, n).mapToDouble(i -> (n - i) * po[i]).toArray();
         return sortFromIndex(parallelMin(cumulativeMax(pp), 1), ro);
     }
 
@@ -94,12 +96,13 @@ public class Adjusters {
      * @param pValues a set of p-values
      * @return a set of corrected p-values
      */
-    public static double[] hochberg(double... pValues) {
-        if (pValues.length == 1) return pValues;
-        int n = pValues.length;
-        int[] o = decreasingOrder(pValues), ro = order(o);
-        double[] po = sortFromIndex(pValues, o),
-                pp = IntStream.range(0, n).mapToDouble(i -> (i + 1) * po[i]).toArray();
+    public static double[] hochberg(@NotNull double... pValues) {
+        if (pValues.length == 1) return pValues.clone();
+        var n = pValues.length;
+        var o = decreasingOrder(pValues);
+        var ro = order(o);
+        var po = sortFromIndex(pValues, o);
+        var pp = IntStream.range(0, n).mapToDouble(i -> (i + 1) * po[i]).toArray();
         return sortFromIndex(parallelMin(cumulativeMin(pp), 1), ro);
     }
 
@@ -109,8 +112,8 @@ public class Adjusters {
      * @param pValues a set of p-values
      * @return a set of corrected p-values
      */
-    public static double[] benjaminiHochberg(double... pValues) {
-        if (pValues.length == 1) return pValues;
+    public static double[] benjaminiHochberg(@NotNull double... pValues) {
+        if (pValues.length == 1) return pValues.clone();
         int n = pValues.length;
         int[] o = decreasingOrder(pValues), ro = order(o);
         double[] po = sortFromIndex(pValues, o),
@@ -124,8 +127,9 @@ public class Adjusters {
      * @param pValues a set of p-values
      * @return a set of corrected p-values
      */
-    public static double[] benjaminiYekutieli(double... pValues) {
-        if (pValues.length == 1) return pValues;
+    @NotNull
+    public static double[] benjaminiYekutieli(@NotNull double... pValues) {
+        if (pValues.length == 1) return pValues.clone();
         int n = pValues.length;
         double q = IntStream.range(0, n).mapToDouble(i -> 1 / (((double) i) + 1)).sum();
         int[] o = decreasingOrder(pValues), ro = order(o);
@@ -141,7 +145,7 @@ public class Adjusters {
      * @return the same list of p-values
      */
     @Contract(pure = true)
-    public static double[] none(double... pValues) {
+    public static double[] none(@NotNull double... pValues) {
         return pValues.clone();
     }
 

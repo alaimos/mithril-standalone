@@ -17,8 +17,8 @@ import java.util.ServiceLoader;
 public class WeightComputationFactory implements Serializable {
 
     private static final long serialVersionUID = 8945656909092804836L;
-    private static ServiceLoader<WeightComputationProvider> loader;
-    private static HashMap<String, WeightComputationInterface> availableComputations = new HashMap<>();
+    private static final ServiceLoader<WeightComputationProvider> loader;
+    private static final HashMap<String, WeightComputationInterface> availableComputations = new HashMap<>();
 
     static {
         availableComputations.put("default", (e, ed) -> ed.getSubType().weight());

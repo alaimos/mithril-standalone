@@ -40,7 +40,7 @@ public class MITHrILService implements Service {
 
     @Override
     public String getDescription() {
-        return "runs MITHrIL 2 algorithm on a sample";
+        return "runs MITHrIL 2 algorithm";
     }
 
     @Override

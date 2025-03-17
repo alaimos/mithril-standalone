@@ -17,11 +17,11 @@ import java.util.stream.Stream;
  */
 public class Edge implements EdgeInterface {
 
-    private static final long                           serialVersionUID  = -6582893354929759738L;
-    protected            NodeInterface                  start;
-    protected            NodeInterface                  end;
-    protected            List<EdgeDescriptionInterface> descriptions      = new ArrayList<>();
-    protected            WeightComputationInterface     weightComputation = null;
+    private static final long serialVersionUID = -6582893354929759738L;
+    protected NodeInterface start;
+    protected NodeInterface end;
+    protected List<EdgeDescriptionInterface> descriptions = new ArrayList<>();
+    protected WeightComputationInterface weightComputation = null;
 
     public Edge() {
         start = null;
@@ -166,7 +166,8 @@ public class Edge implements EdgeInterface {
         for (EdgeDescriptionInterface d : descriptions) {
             weight += weightComputation.weight(this, d);
         }
-        return weight;
+        if (weight == 0.0) return 0.0;
+        return weight / Math.abs(weight); // Normalizes in the range [-1,1]
     }
 
     @Override
@@ -178,7 +179,7 @@ public class Edge implements EdgeInterface {
         for (EdgeDescriptionInterface d : descr) {
             weight += weightComputation.weight(this, d);
         }
-        return weight;
+        return weight / Math.abs(weight); // Normalizes in the range [-1,1]
         //return descr.stream().mapToDouble(d -> weightComputation.weight(this, d)).sum();
     }
 
@@ -215,7 +216,6 @@ public class Edge implements EdgeInterface {
      *
      * @return my clone
      */
-    @SuppressWarnings("unchecked")
     public Object clone() {
         Edge clone;
         try {
@@ -227,7 +227,7 @@ public class Edge implements EdgeInterface {
         clone.end = (NodeInterface) end.clone();
         clone.weightComputation = weightComputation; //this must not be cloned!!
         clone.descriptions = descriptions.stream().map(d -> (EdgeDescriptionInterface) d.clone())
-                                         .collect(Collectors.toList());
+                .collect(Collectors.toList());
         return clone;
     }
 

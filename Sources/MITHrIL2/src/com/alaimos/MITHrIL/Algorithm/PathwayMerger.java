@@ -39,7 +39,7 @@ public class PathwayMerger extends AbstractAlgorithm<MergedRepository> {
     }
 
     @NotNull
-    private Predicate<NodeInterface> getFilterPredicate(Pattern[] patterns) {
+    protected Predicate<NodeInterface> getFilterPredicate(Pattern[] patterns) {
         if (patterns == null || patterns.length == 0) return n -> true;
         return n -> {
             for (Pattern p : patterns) {
@@ -51,7 +51,7 @@ public class PathwayMerger extends AbstractAlgorithm<MergedRepository> {
         };
     }
 
-    private static Stream<PathwayInterface> buildPathwayStream(RepositoryInterface r, String[] includeCategories, String[] excludeCategories,
+    protected Stream<PathwayInterface> buildPathwayStream(RepositoryInterface r, String[] includeCategories, String[] excludeCategories,
                                                                String[] includePathways, String[] excludePathways) {
         Stream<PathwayInterface> pathwayStream; //A stream of pathways to merge
         List<PathwayInterface> pathways;        // List of pathways to merge

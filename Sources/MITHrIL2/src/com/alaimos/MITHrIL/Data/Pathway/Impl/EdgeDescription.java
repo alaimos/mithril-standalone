@@ -17,12 +17,12 @@ import java.util.Objects;
  */
 public class EdgeDescription implements EdgeDescriptionInterface {
 
-    private static final long             serialVersionUID = 7519228777154653945L;
-    protected            EdgeType         type;
-    protected            String           typeString;
-    protected            EdgeSubType      subType;
-    protected            String           subTypeString;
-    protected            PathwayInterface owner            = null;
+    private static final long serialVersionUID = 2999560788466357768L;
+    protected EdgeType type;
+    protected String typeString;
+    protected EdgeSubType subType;
+    protected String subTypeString;
+    protected PathwayInterface owner = null;
 
 
     /**
@@ -111,7 +111,7 @@ public class EdgeDescription implements EdgeDescriptionInterface {
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, subType, owner);
+        return Objects.hash(type.toString(), subType.toString());
     }
 
     /**

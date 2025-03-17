@@ -56,7 +56,7 @@ public class ExportSubstructuresService implements Service {
 
     @Override
     public String getDescription() {
-        return "Main SPECIFIC algorithm: exports all specific substructures found a meta-pathway.";
+        return "export substructures in a pathway.";
     }
 
     @Override

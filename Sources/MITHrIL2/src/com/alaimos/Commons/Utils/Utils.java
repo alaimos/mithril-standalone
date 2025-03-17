@@ -1,15 +1,19 @@
 package com.alaimos.Commons.Utils;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 
 /**
@@ -124,6 +128,37 @@ public class Utils {
      */
     public static Optional<Double> optionalFiniteDouble(Double d) {
         return Optional.ofNullable(d).filter(Double::isFinite);
+    }
+
+    /**
+     * Array from generic type
+     *
+     * @param size  size of the array
+     * @param clazz runtime class of the array
+     * @param <T>   generic output type
+     * @return An array of the chosen type and size
+     */
+    @SuppressWarnings("unchecked")
+    public static <T> T[] genericArray(int size, Class<T> clazz) {
+        return (T[]) Array.newInstance(clazz, size);
+    }
+
+    public static <U, V> void applyArrayFunctionToMap(@NotNull Map<U, V> map, Function<V[], V[]> f,
+                                                      Class<U> uClass, Class<V> vClass) {
+        var n = map.size();
+        if (n == 0) return;
+        var uArray = genericArray(n, uClass);
+        var vArray = genericArray(n, vClass);
+        var i = 0;
+        for (var e : map.entrySet()) {
+            uArray[i] = e.getKey();
+            vArray[i] = e.getValue();
+            i++;
+        }
+        vArray = f.apply(vArray);
+        for (i = 0; i < n; i++) {
+            map.put(uArray[i], vArray[i]);
+        }
     }
 
 }

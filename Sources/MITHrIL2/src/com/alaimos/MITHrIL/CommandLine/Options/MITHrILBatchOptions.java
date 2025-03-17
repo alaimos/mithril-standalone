@@ -4,11 +4,6 @@ import org.kohsuke.args4j.Option;
 
 import java.io.File;
 
-/**
- * @author Salvatore Alaimo, Ph.D.
- * @version 2.1.0.0
- * @since 05/01/2016
- */
 public class MITHrILBatchOptions extends MITHrILCommonOptions {
 
     @Option(name = "-i", aliases = "-in", usage = "a tab-separated input file where each line contains " +

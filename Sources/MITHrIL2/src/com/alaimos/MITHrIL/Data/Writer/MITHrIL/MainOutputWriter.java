@@ -65,12 +65,12 @@ public class MainOutputWriter extends AbstractDataWriter<PathwayAnalysisResult> 
                     writeArray(ps, new String[]{
                             pId,
                             pathwayName(pId),
-                            Double.toString(acc.get(pId)),
-                            Double.toString(imf.get(pId)),
-                            Double.toString(pro.get(pId)),
-                            Double.toString(net.get(pId)),
-                            Double.toString(corrAcc.get(pId)),
-                            Double.toString(pvs.get(pId)),
+                            Double.toString(acc.getOrDefault(pId, Double.NaN)),
+                            Double.toString(imf.getOrDefault(pId, Double.NaN)),
+                            Double.toString(pro.getOrDefault(pId, Double.NaN)),
+                            Double.toString(net.getOrDefault(pId, Double.NaN)),
+                            Double.toString(corrAcc.getOrDefault(pId, Double.NaN)),
+                            Double.toString(pvs.getOrDefault(pId, Double.NaN)),
                             Double.toString(e.getValue())
                     });
                     ps.println();

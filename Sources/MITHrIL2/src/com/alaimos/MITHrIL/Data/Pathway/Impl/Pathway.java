@@ -166,7 +166,7 @@ public class Pathway implements PathwayInterface {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, graph);
     }
 
     /**
@@ -174,7 +174,6 @@ public class Pathway implements PathwayInterface {
      *
      * @return my clone
      */
-    @SuppressWarnings("unchecked")
     public Object clone() {
         Pathway clone;
         try {
