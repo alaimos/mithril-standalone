@@ -8,6 +8,7 @@ import com.alaimos.MITHrIL.Data.Pathway.Interface.RepositoryInterface;
 import com.alaimos.MITHrIL.Data.Results.PathwayAnalysisResult;
 
 import java.io.PrintStream;
+import java.util.Map;
 
 /**
  * @author Salvatore Alaimo, Ph.D.
@@ -28,6 +29,16 @@ public class NodesOutputWriter extends AbstractDataWriter<PathwayAnalysisResult>
         this.onlyEndpoints = onlyEndpoints;
     }
 
+    private double multiMapGet(Map<String, Map<String, Double>> map, String key1, String key2, double defaultValue) {
+        if (map.containsKey(key1)) {
+            var m = map.get(key1);
+            if (m != null) {
+                return m.getOrDefault(key2, defaultValue);
+            }
+        }
+        return Double.NaN;
+    }
+
     private void writeEntry(PrintStream ps, String pId, String nId, PathwayInterface p, GraphInterface g, PathwayAnalysisResult data) {
         var pId2 = p.getId();
         writeArray(ps, new String[]{
@@ -35,9 +46,9 @@ public class NodesOutputWriter extends AbstractDataWriter<PathwayAnalysisResult>
                 pathwayName(pId),
                 nId,
                 g.getNode(nId).getName(),
-                Double.toString(data.getPerturbations().get(pId2).getOrDefault(nId, 0.0)),
-                Double.toString(data.getNodeAccumulators().get(pId2).getOrDefault(nId, 0.0)),
-                Double.toString(data.getNodePValues().get(pId2).getOrDefault(nId, 1.0))
+                Double.toString(multiMapGet(data.getPerturbations(), pId2, nId, 0.0)),
+                Double.toString(multiMapGet(data.getNodeAccumulators(), pId2, nId, 0.0)),
+                Double.toString(multiMapGet(data.getNodePValues(), pId2, nId, 1.0))
         });
         ps.println();
     }

@@ -22,7 +22,7 @@ public class MiRNATranscriptionFactor {
         if (s == null || s.length < 5 || s[0].isEmpty() || s[1].isEmpty()) {
             throw new RuntimeException("Source string in not correctly formatted");
         }
-        return new MiRNATranscriptionFactor(s[0], s[3], s[2], s[4]);
+        return new MiRNATranscriptionFactor(s[0], s[2], s[3], s[4]);
     }
 
     public MiRNATranscriptionFactor(String tfId, String tfType, String evidenceType, String references) {

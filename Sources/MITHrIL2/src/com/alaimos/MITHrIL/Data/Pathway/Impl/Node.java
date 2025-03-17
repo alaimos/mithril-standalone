@@ -18,12 +18,12 @@ import java.util.Objects;
  */
 public class Node implements NodeInterface {
 
-    private static final long              serialVersionUID = 642755128746768579L;
-    protected            String            id;
-    protected            String            name;
-    protected            NodeType          type;
-    protected            String            typeString;
-    protected            ArrayList<String> aliases          = new ArrayList<>();
+    private static final long serialVersionUID = -2493635863057504503L;
+    protected String id;
+    protected String name;
+    protected NodeType type;
+    protected String typeString;
+    protected ArrayList<String> aliases = new ArrayList<>();
 
     public Node() {
         id = null;
@@ -116,7 +116,7 @@ public class Node implements NodeInterface {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, type.toString());
     }
 
     /**
@@ -124,7 +124,6 @@ public class Node implements NodeInterface {
      *
      * @return my clone
      */
-    @SuppressWarnings("unchecked")
     public Object clone() {
         Node clone;
         try {
@@ -155,5 +154,12 @@ public class Node implements NodeInterface {
     private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         postSerialize();
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "id='" + id + '\'' +
+                '}';
     }
 }

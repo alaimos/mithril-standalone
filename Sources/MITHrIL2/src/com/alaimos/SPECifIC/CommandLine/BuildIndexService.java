@@ -56,7 +56,7 @@ public class BuildIndexService implements Service {
      */
     protected RepositoryInterface getPathwayRepository(Species s) {
         return Common.getPathwayRepository(s, false, options.getEnrichmentEvidenceType(), false,
-                null, this::report, false);
+                null, this::report, false, options.reactome);
     }
 
     /**

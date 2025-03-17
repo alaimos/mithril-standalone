@@ -52,4 +52,8 @@ public class Pair<E, F> implements Cloneable, Serializable {
         return clone;
     }
 
+    @Override
+    public String toString() {
+        return Objects.toString(first) + " - " + Objects.toString(second);
+    }
 }

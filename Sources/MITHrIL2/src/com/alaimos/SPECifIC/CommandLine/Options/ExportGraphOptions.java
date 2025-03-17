@@ -30,6 +30,9 @@ public class ExportGraphOptions extends AbstractOptions {
     @Option(name = "-verbose", usage = "shows verbose computational outline.")
     protected boolean verbose = false;
 
+    @Option(name = "-reactome", usage = "add reactome pathways to the internal repository if available for the selected species.")
+    public boolean reactome = false;
+
     @Option(name = "-disable-priority", usage = "disable priority check when building merged pathway")
     protected boolean disablePriority = false;
 

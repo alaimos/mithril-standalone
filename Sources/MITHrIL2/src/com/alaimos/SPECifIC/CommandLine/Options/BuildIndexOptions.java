@@ -21,6 +21,8 @@ public class BuildIndexOptions extends AbstractOptions {
     @Option(name = "-verbose", usage = "shows verbose computational outline.")
     protected boolean verbose = false;
 
+    @Option(name = "-reactome", usage = "add reactome pathways to the internal repository if available for the selected species.")
+    public boolean reactome = false;
 
     public boolean isVerbose() {
         return verbose;

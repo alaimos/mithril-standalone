@@ -24,7 +24,7 @@ public class MergedRepository extends Repository {
     private static final String REMAINING_PATHWAY_NAME = "All remaining nodes";
     private PathwayInterface mergedPathway;
 
-    public MergedRepository(PathwayInterface mergedPathway, Map<String, List<Pair<String, String>>> pathwaysToEdges) {
+    public MergedRepository(PathwayInterface mergedPathway, @NotNull Map<String, List<Pair<String, String>>> pathwaysToEdges) {
         this.mergedPathway = mergedPathway;
         super.add(mergedPathway);
         for (Map.Entry<String, List<Pair<String, String>>> e : pathwaysToEdges.entrySet()) {
@@ -37,7 +37,7 @@ public class MergedRepository extends Repository {
     }
 
     @Override
-    public boolean add(PathwayInterface pathwayInterface) {
+    public boolean add(@NotNull PathwayInterface pathwayInterface) {
         throw new UnsupportedOperationException("This repository is read only.");
     }
 

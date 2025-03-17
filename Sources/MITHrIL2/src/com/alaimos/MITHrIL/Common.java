@@ -12,6 +12,8 @@ import com.alaimos.MITHrIL.Data.Reader.RemotePathwayRepositoryReader;
 import com.alaimos.MITHrIL.Data.Records.MiRNAsContainer;
 import com.alaimos.MITHrIL.Data.Records.Species;
 import com.alaimos.MITHrIL.Data.Records.Type.EvidenceType;
+import com.alaimos.PHENSIM.Data.Reader.RemoteReactomeIndexReader;
+import com.alaimos.PHENSIM.Data.Reader.RemoteReactomeRepositoryReader;
 
 import java.util.function.Consumer;
 import java.util.regex.Pattern;
@@ -39,7 +41,7 @@ public class Common {
     public static RepositoryInterface getPathwayRepository(Species s, boolean noEnrichment,
                                                            EvidenceType enrichmentEvidenceType, boolean addDecoys,
                                                            Long randomSeed, Consumer<String> report) {
-        return getPathwayRepository(s, noEnrichment, enrichmentEvidenceType, addDecoys, randomSeed, report, true);
+        return getPathwayRepository(s, noEnrichment, enrichmentEvidenceType, addDecoys, randomSeed, report, true, false);
     }
 
     /**
@@ -56,9 +58,10 @@ public class Common {
      */
     public static RepositoryInterface getPathwayRepository(Species s, boolean noEnrichment,
                                                            EvidenceType enrichmentEvidenceType, boolean addDecoys,
-                                                           Long randomSeed, Consumer<String> report, boolean indexed) {
+                                                           Long randomSeed, Consumer<String> report, boolean indexed, boolean reactome) {
         if (indexed) {
-            String fileName = "index-" + s.getId() + "-" + enrichmentEvidenceType + "-repository.datz";
+            String fileName = "index-" + s.getId() + "-" + enrichmentEvidenceType + "-repository" +
+                    (reactome ? "-with-reactome" : "") + ".datz";
             try {
                 RepositoryInterface r =
                         new BinaryReader<>(RepositoryInterface.class).read(fileName);
@@ -69,6 +72,16 @@ public class Common {
         RemotePathwayRepositoryReader pathwayReader = new RemotePathwayRepositoryReader(s.getPathwayDatabaseUrl());
         RepositoryInterface r = pathwayReader.read();
         if (r == null) throw new RuntimeException("Unable to read pathway repository.");
+        if (reactome) {
+            report.accept("...Adding REACTOME pathways");
+            var index = RemoteReactomeIndexReader.getInstance().readIndex();
+            if (!index.containsKey(s.getId())) {
+                report.accept("...REACTOME not supported for the selected species! Skipping!");
+            } else {
+                var reader = new RemoteReactomeRepositoryReader(index.get(s.getId()), r);
+                r = reader.read();
+            }
+        }
         if (!noEnrichment && s.hasMiRNA()) {
             report.accept("...Reading miRNAs");
             RemoteMiRNATargetsReader rm = new RemoteMiRNATargetsReader(s.getMiRNADatabaseUrl());
@@ -137,13 +150,13 @@ public class Common {
                                                      Pattern[] nodesFilter, boolean disablePriority) {
         PathwayMerger pm = new PathwayMerger();
         pm.init()
-          .setParameter("repository", r)
-          .setParameter("include", includeCategories)
-          .setParameter("exclude", excludeCategories)
-          .setParameter("includePathways", includePathways)
-          .setParameter("nodesFilter", nodesFilter)
-          .setParameter("disablePriority", disablePriority)
-          .run();
+                .setParameter("repository", r)
+                .setParameter("include", includeCategories)
+                .setParameter("exclude", excludeCategories)
+                .setParameter("includePathways", includePathways)
+                .setParameter("nodesFilter", nodesFilter)
+                .setParameter("disablePriority", disablePriority)
+                .run();
         return pm.getOutput();
     }
 

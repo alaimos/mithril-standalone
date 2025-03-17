@@ -35,7 +35,19 @@ public abstract class AbstractDataWriter<T> implements DataWriterInterface<T> {
      */
     protected String concatArray(String[] array, String separator) {
         if (array == null || array.length == 0) return "";
-        return Arrays.stream(array).collect(Collectors.joining(separator));
+        return String.join(separator, array);
+    }
+
+    /**
+     * Joins an array of strings in a single string separated by a character separator
+     *
+     * @param array     the array of strings
+     * @param separator the separator
+     * @return joined output
+     */
+    protected String concatArray(double[] array, String separator) {
+        if (array == null || array.length == 0) return "";
+        return Arrays.stream(array).mapToObj(Double::toString).collect(Collectors.joining(separator));
     }
 
     /**

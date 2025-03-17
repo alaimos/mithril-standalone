@@ -7,14 +7,19 @@ import com.alaimos.MITHrIL.Common;
 import com.alaimos.MITHrIL.Data.Pathway.Impl.MergedRepository;
 import com.alaimos.MITHrIL.Data.Pathway.Interface.PathwayInterface;
 import com.alaimos.MITHrIL.Data.Pathway.Interface.RepositoryInterface;
+import com.alaimos.MITHrIL.Data.Reader.BinaryReader;
 import com.alaimos.MITHrIL.Data.Reader.RemoteSpeciesDatabaseReader;
 import com.alaimos.MITHrIL.Data.Records.Species;
+import com.alaimos.PHENSIM.Data.Reader.RemoteReactomeIndexReader;
+import com.alaimos.PHENSIM.Data.Reader.RemoteReactomeRepositoryReader;
 import com.alaimos.SPECifIC.CommandLine.Options.ExportGraphOptions;
 import com.alaimos.SPECifIC.Data.Writer.EdgesIndexWriter;
 import com.alaimos.SPECifIC.Data.Writer.NodesIndexWriter;
 import com.alaimos.SPECifIC.Data.Writer.PathwayToEdgesIndexWriter;
 
 import java.util.HashMap;
+
+import static com.alaimos.PHENSIM.Common.getEnrichedRepository;
 
 /**
  * @author Salvatore Alaimo, Ph.D.
@@ -64,7 +69,7 @@ public class ExportGraphService implements Service {
      */
     protected RepositoryInterface getPathwayRepository(Species s) {
         return Common.getPathwayRepository(s, false, options.getEnrichmentEvidenceType(), false,
-                null, this::report);
+                null, this::report, true, options.reactome);
     }
 
 
@@ -97,6 +102,7 @@ public class ExportGraphService implements Service {
         MergedRepository rm =
                 Common.mergeRepositories(r, options.getIncludeCategories(), options.getExcludeCategories(), null, null,
                         options.isDisablePriority());
+        rm.setDefaultWeightComputation();
         PathwayInterface mp = rm.getPathway();
         reportln("...OK!");
         if (options.getNodesOutput() != null) {
