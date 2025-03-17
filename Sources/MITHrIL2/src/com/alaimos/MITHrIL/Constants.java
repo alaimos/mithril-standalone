@@ -19,6 +19,6 @@ public class Constants {
     public static final String COMMONS_EDGE_TYPE = "https://alpha.dmi.unict.it/mithril/data/commons/edgetype.enum";
     public static final String COMMONS_NODE_TYPE = "https://alpha.dmi.unict.it/mithril/data/commons/nodetype.enum";
     public static final String MITHRIL_VERSION_FILE = "version";
-    public static final String CURRENT_VERSION = "2.1.0.0";
+    public static final String CURRENT_VERSION = "2.3.0.0";
 
 }
