@@ -16,7 +16,7 @@ public class RemoteTextFileReaderTest {
 
     @Test
     public void testRead() throws Exception {
-        RemoteTextFileReader rf = new RemoteTextFileReader("https://alpha.dmi.unict.it/mithril/data/index.txt.gz");
+        RemoteTextFileReader rf = new RemoteTextFileReader("https://knowmicslab-mithril.s3.eu-west-1.amazonaws.com/index.txt.gz");
         List<String[]> result = rf.read();
         assertNotNull(result);
         assertTrue(result.size() > 0);
@@ -26,7 +26,7 @@ public class RemoteTextFileReaderTest {
 
     @Test
     public void testReadLimitedFields() throws Exception {
-        RemoteTextFileReader rf = new RemoteTextFileReader("https://alpha.dmi.unict.it/mithril/data/index.txt.gz");
+        RemoteTextFileReader rf = new RemoteTextFileReader("https://knowmicslab-mithril.s3.eu-west-1.amazonaws.com/index.txt.gz");
         rf.setFieldCountLimit(7);
         List<String[]> result = rf.read();
         assertNotNull(result);
@@ -37,7 +37,7 @@ public class RemoteTextFileReaderTest {
 
     @Test
     public void testReadLimitedFields1() throws Exception {
-        RemoteTextFileReader rf = new RemoteTextFileReader("https://alpha.dmi.unict.it/mithril/data/index.txt.gz");
+        RemoteTextFileReader rf = new RemoteTextFileReader("https://knowmicslab-mithril.s3.eu-west-1.amazonaws.com/index.txt.gz");
         rf.setFieldCountLimit(6);
         List<String[]> result = rf.read();
         assertNotNull(result);
@@ -48,7 +48,7 @@ public class RemoteTextFileReaderTest {
     @Test
     public void testPersistentRead() throws Exception {
         RemoteTextFileReader rf =
-                new RemoteTextFileReader("https://alpha.dmi.unict.it/mithril/data/index.txt.gz", "index.txt.gz");
+                new RemoteTextFileReader("https://knowmicslab-mithril.s3.eu-west-1.amazonaws.com/index.txt.gz", "index.txt.gz");
         List<String[]> result = rf.read();
         assertNotNull(result);
         assertTrue(result.size() > 0);

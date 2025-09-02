@@ -30,7 +30,7 @@ public class UtilsTest {
 
     @Test
     public void testDownload() throws Exception {
-        File f = Utils.download("http://alpha.dmi.unict.it/mithril/data/pathways/hsa.txt.gz", "out.txt.gz");
+        File f = Utils.download("https://knowmicslab-mithril.s3.eu-west-1.amazonaws.com/pathways/hsa.txt.gz", "out.txt.gz");
         assertNotNull(f);
         assertTrue(f.exists());
         assertTrue(f.delete());
